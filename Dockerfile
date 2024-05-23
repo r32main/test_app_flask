@@ -1,23 +1,19 @@
 # Вказуємо базовий образ
-FROM python:3.8-slim AS builder
+FROM python:3.8-slim
 
 # Встановлюємо залежності
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --user -r requirements.txt
-
-# Використовуємо багатоступеневу збірку для зменшення розміру фінального образу
-FROM builder
-
-# Додаємо користувача і створюємо відповідні директорії
-RUN useradd -m myuser
-WORKDIR /home/myuser/app
-COPY . .
+RUN pip install -r requirements.txt
 
 # Виставляємо порти і змінюємо власника файлів
 EXPOSE 5000
-RUN chown -R myuser:myuser /home/myuser/app
+RUN mkdir -p /home/myuser/app && useradd -r myuser && chown myuser:myuser /home/myuser/app
 USER myuser
+
+# Копіюємо файли проекту та виконуємо додаток
+WORKDIR /home/myuser/app
+COPY . .
 
 # Команда для запуску додатку
 ENTRYPOINT [ "python" ]
