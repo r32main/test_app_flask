@@ -29,7 +29,7 @@ jobs:
 
       - name: Tag Docker image for Amazon ECR
         run: |
-          docker tag r32main/flask-app:latest:latest 416149400280.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest
+          docker tag r32main/flask-app:latest 416149400280.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest
 
       - name: Push Docker image to Amazon ECR
         run: |
