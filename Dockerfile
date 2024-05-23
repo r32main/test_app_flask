@@ -7,7 +7,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Виставляємо порти і змінюємо власника файлів
-EXPOSE 80
+EXPOSE 5000
 RUN mkdir -p /home/myuser/app && useradd -r myuser && chown myuser:myuser /home/myuser/app
 USER myuser
 
